@@ -19,21 +19,24 @@ v1.0
 Launch Command
 ---------------
 ```
-docker run -v $HOME/Documents:/home/vlc/Documents:rw -v /dev/snd:/dev/snd --privileged -v /tmp/.X11-unix:/tmp/.X11-unix -e uid=$(id -u) -e gid=$(id -g) -e DISPLAY=unix$DISPLAY --name vlc -i -t chrisdaish/vlc
+docker run -v $HOME/Documents:/home/vlc/Documents:rw -v /dev/snd:/dev/snd --privileged -v /tmp/.X11-unix:/tmp/.X11-unix -e uid=$(id -u) -e gid=$(id -g) -e DISPLAY=unix$DISPLAY --name vlc chrisdaish/vlc
 ```
 
 Additional config example:
+
 ```
-docker run -v $HOME/Documents:/home/vlc/Documents:rw -v $HOME/<pathToConfigFiles>/vlcrc:/home/vlc/.config/vlc/vlcrc:ro -v /dev/snd:/dev/snd --privileged -v /tmp/.X11-unix:/tmp/.X11-unix -e uid=$(id -u) -e gid=$(id -g) -e DISPLAY=unix$DISPLAY --name vlc -i -t chrisdaish/vlc
+docker run -v $HOME/Documents:/home/vlc/Documents:rw -v $HOME/<pathToConfigFiles>/vlcrc:/home/vlc/.config/vlc/vlcrc:ro -v /dev/snd:/dev/snd --privileged -v /tmp/.X11-unix:/tmp/.X11-unix -e uid=$(id -u) -e gid=$(id -g) -e DISPLAY=unix$DISPLAY --name vlc chrisdaish/vlc
 ```
 
 FAQ
 ---
 Note: If you receive the following Gtk error:
+
 ```
 Gtk-WARNING **: cannot open display: unix:0.0
 ```
 Simply allow the docker user to communicate with your X session
+
 ```
 xhost +local:docker
 ```
