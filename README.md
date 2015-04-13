@@ -6,6 +6,9 @@ Unofficial build of VLC 2.1.6 running within a docker container and rendered by 
 Changelog
 ---------
 ```
+v1.2
+* Optional environment variables 'ARGS' and 'FILE' can now be passed into the container. For example: -e ARGS='--loop' -e FILE='/home/vlc/Documents/sampleVideo.mp4' 
+
 v1.1
 * Added audio passthrough, however this requires the --privileged argument to be set. This should be used with caution.
 
