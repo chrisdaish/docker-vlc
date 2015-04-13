@@ -1,7 +1,7 @@
 VLC
 ===
 
-Unofficial build of VLC 2.1.4 running within a docker container and rendered by the local X Server.
+Unofficial build of VLC 2.1.6 running within a docker container and rendered by the local X Server.
 
 Changelog
 ---------
