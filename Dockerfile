@@ -1,6 +1,6 @@
 FROM debian:jessie
 
-MAINTAINER Chris Daish <chrisdaish@gmail.com>
+MAINTAINER Scott R. Sideleau <scott@sideleau.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV uid 1000
