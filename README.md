@@ -1,45 +1,29 @@
-VLC
-===
+# docker-vlc
 
-Unofficial build of VLC 2.1.6 running within a docker container and rendered by the local X Server.
+Unofficial build of VLC 2.2.4, with audio support, running within a Docker container.
 
-Changelog
----------
-```
-v1.2
-* Optional environment variables 'ARGS' and 'FILE' can now be passed into the container. For example: -e ARGS='--loop' -e FILE='/home/vlc/Documents/sampleVideo.mp4' 
+Derived from [chrisdaish/vlc](https://hub.docker.com/r/chrisdaish/vlc/) with the following enhancements:
 
-v1.1
-* Added audio passthrough, however this requires the --privileged argument to be set. This should be used with caution.
+* Switched from ubuntu:14.04 to debian:8 base container
+* Upgraded 'vlc' to v2.2.4 (stable)
+* Added 'vlc' user to 'audio' group in Dockerfile
+* Improved 'start_vlc.sh' by chown'ing all of /home/vlc following uid:gid change vice just '~/.config' directory
 
-* Additional configuration files can now be mounted inside the container (see example below).
-I have included the vlcrc in my [GitHub](https://github.com/chrisdaish/docker-vlc/tree/master/configFiles).
+Submitted a [pull request](https://github.com/chrisdaish/docker-vlc/pull/1) against the original repository, but a [fork](https://github.com/scottsideleau/docker-vlc) will be preserved at least until changes have been accepted upstream.
 
-v1.0
-* User permissions now correlate between host and container. This allows VLC media to be saved back to the host system by passing in the local users uid/gid as environment variables.
-```
-
-Launch Command
----------------
-```
-docker run -v $HOME/Documents:/home/vlc/Documents:rw -v /dev/snd:/dev/snd --privileged -v /tmp/.X11-unix:/tmp/.X11-unix -e uid=$(id -u) -e gid=$(id -g) -e DISPLAY=unix$DISPLAY --name vlc chrisdaish/vlc
-```
-
-Additional config example:
+A launch script is recommended to be built/placed in /usr/local/lib with the following:
 
 ```
-docker run -v $HOME/Documents:/home/vlc/Documents:rw -v $HOME/<pathToConfigFiles>/vlcrc:/home/vlc/.config/vlc/vlcrc:ro -v /dev/snd:/dev/snd --privileged -v /tmp/.X11-unix:/tmp/.X11-unix -e uid=$(id -u) -e gid=$(id -g) -e DISPLAY=unix$DISPLAY --name vlc chrisdaish/vlc
+docker run \
+  -v $HOME/Videos:/home/vlc/Documents:rw \
+  -v $HOME/.pulse:/home/vlc/.pulse:rw \
+  -v /dev/shm:/dev/shm \
+  -v /dev/snd:/dev/snd --privileged \
+  -v /var/lib/dbus:/var/lib/dbus \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  -e uid=$(id -u) -e gid=$(id -g) \
+  -e DISPLAY=unix$DISPLAY --name docker-vlc \
+  scottsideleau/vlc
 ```
 
-FAQ
----
-Note: If you receive the following Gtk error:
-
-```
-Gtk-WARNING **: cannot open display: unix:0.0
-```
-Simply allow the docker user to communicate with your X session
-
-```
-xhost +local:docker
-```
+The implementation has been verified on both Red Hat Enterprise Linux (RHEL) 6.8 and Ubuntu LTS 16.04 workstations.
