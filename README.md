@@ -2,7 +2,7 @@
 
 Unofficial build of VLC 2.2.4, with audio support, running within a Docker container.
 
-Derived from [chrisdaish/vlc](https://hub.docker.com/r/chrisdaish/vlc/) with the following enhancements:
+Derived from [chrisdaish/vlc](https://github.com/chrisdaish/docker-vlc) with the following enhancements:
 
 * Switched from ubuntu:14.04 to debian:8 base container
 * Upgraded 'vlc' to v2.2.4 (stable)
