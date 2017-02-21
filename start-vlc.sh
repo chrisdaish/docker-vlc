@@ -1,9 +1,10 @@
 #!/bin/bash
 groupmod -g $gid vlc
 usermod -u $uid -g $gid vlc
+chown --recursive vlc:vlc /home/vlc
 
-if [ -d /home/vlc/.config ]; then
-  chown -R vlc:vlc /home/vlc/.config
-fi
-
-exec su -ls "/bin/bash" -c "mkdir -p /home/vlc/.local/share; /usr/bin/vlc $ARGS $FILE" vlc
+exec su --login \
+        --shell "/bin/bash" \
+        --command "mkdir -p /home/vlc/.local/share; \
+                   /usr/bin/vlc $ARGS $FILE" \
+     vlc
